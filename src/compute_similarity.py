@@ -35,7 +35,16 @@ def brisk(
         cv2.BRISK_create(), image_a, image_b, presicion
     )
 
-def draw_features(image_a, image_b, key_points_a, key_points_b, features, number_of_features:int=100):
+def akaze(
+    image_a, image_b, presicion: int=50
+)->typing.Tuple[float, typing.Any, typing.Any, typing.Any, typing.Any, typing.Any]:
+    return compute_similarity_with_descriptors(
+        cv2.AKAZE_create(), image_a, image_b, presicion
+    )
+
+def draw_features(
+    image_a, image_b, key_points_a, key_points_b, features, number_of_features:int=100
+):
     # draw first 50 matches
     match_img = cv2.drawMatches(
         image_a, key_points_a, image_b, key_points_b, features[:number_of_features], None
@@ -62,7 +71,8 @@ ssim_value = ssim(grayA, grayB)
 msssim_value = msssim(grayA, grayB)
 dssim_value = (1-ssim_value) / 2
 orb_value = orb(grayA, grayB)
-brisk_value = brisk(grayA, grayB)
+brisk_value = brisk(grayA, grayB, 90)
+akaze_value = akaze(grayA, grayB)
 # descriptor = cv2.xfeatures2d.BEBLID_create(0.75)
 
 
@@ -80,7 +90,12 @@ print(f"ISSM: {issm_value}")
 print(f"SCC: {scc_value}")
 print(f"ORB: {orb_value[0]}")
 print(f"BRISK: {brisk_value[0]}")
+print(f"AKAZE: {akaze_value[0]}")
 # print(f"CW-SSIM: {cw_ssim_value}")
 # print(f"FSIM: {fsim_value}")
 
 # draw_features(grayA, grayB, orb_value[1], orb_value[2], orb_value[-1])
+# draw_features(
+#     grayA, grayB, brisk_value[1], brisk_value[2], 
+#     sorted(brisk_value[-1], key=lambda x: x.distance), 999
+# )
