@@ -42,6 +42,13 @@ def akaze(
         cv2.AKAZE_create(), image_a, image_b, presicion
     )
 
+def sift(
+    image_a, image_b, presicion: int=50
+)->typing.Tuple[float, typing.Any, typing.Any, typing.Any, typing.Any, typing.Any]:
+    return compute_similarity_with_descriptors(
+        cv2.SIFT_create(), image_a, image_b, presicion, cv2.NORM_L2
+    )
+
 def draw_features(
     image_a, image_b, key_points_a, key_points_b, features, number_of_features:int=100
 ):
@@ -73,8 +80,7 @@ dssim_value = (1-ssim_value) / 2
 orb_value = orb(grayA, grayB)
 brisk_value = brisk(grayA, grayB, 90)
 akaze_value = akaze(grayA, grayB)
-# descriptor = cv2.xfeatures2d.BEBLID_create(0.75)
-
+sift_value = sift(grayA, grayB)
 
 # NOTE - the process is killed
 # cw_ssim_value = pyssim.SSIM(absolute_path_imageA).cw_ssim_value(absolute_path_imageB)
@@ -91,6 +97,7 @@ print(f"SCC: {scc_value}")
 print(f"ORB: {orb_value[0]}")
 print(f"BRISK: {brisk_value[0]}")
 print(f"AKAZE: {akaze_value[0]}")
+print(f"SIFT: {sift_value[0]}")
 # print(f"CW-SSIM: {cw_ssim_value}")
 # print(f"FSIM: {fsim_value}")
 
@@ -99,3 +106,7 @@ print(f"AKAZE: {akaze_value[0]}")
 #     grayA, grayB, brisk_value[1], brisk_value[2], 
 #     sorted(brisk_value[-1], key=lambda x: x.distance), 999
 # )
+draw_features(
+    grayA, grayB, sift_value[1], sift_value[2], 
+    sorted(sift_value[-1], key=lambda x: x.distance), 999
+)
