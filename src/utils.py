@@ -48,7 +48,6 @@ def sift(
 def draw_features(
     image_a, image_b, key_points_a, key_points_b, features, number_of_features:int=100
 ):
-    # draw first 50 matches
     match_img = cv2.drawMatches(
         image_a, key_points_a, image_b, key_points_b, features[:number_of_features], None
     )

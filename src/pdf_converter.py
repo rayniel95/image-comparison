@@ -46,6 +46,8 @@ image_b_resized = add_margin(
     0, "white"
 )
 
+image_a_resized = image_a_resized.convert("1")
+image_b_resized = image_b_resized.convert("1")
 image_a_resized.save(absolute_path_output+"image_a.jpg", "jpeg")
 image_b_resized.save(absolute_path_output+"image_b.jpg", "jpeg")
 
