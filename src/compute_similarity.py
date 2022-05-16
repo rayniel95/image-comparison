@@ -3,7 +3,7 @@ from image_similarity_measures.quality_metrics import fsim, rmse, psnr, sre, iss
 from sewar.full_ref import msssim, scc
 import ssim as pyssim
 import cv2
-from utils import orb, sift, akaze, brisk, draw_features
+from utils import draw_differences_ssim, orb, sift, akaze, brisk, draw_features
 
 
 absolute_path_imageA = "/home/rainyel/Documents/datamart/image-comparison/src/output/image_a.jpg"
@@ -21,9 +21,9 @@ issm_value = issm(imageA, imageB) # FIXME - it is not working, return 0.0
 rmse_value = rmse(imageA, imageB) 
 psnr_value = psnr(imageA, imageB) 
 sre_value = sre(imageA, imageB)
-ssim_value = ssim(grayA, grayB)
+ssim_value = ssim(grayA, grayB, full=True)
 msssim_value = msssim(grayA, grayB)
-dssim_value = (1-ssim_value) / 2
+dssim_value = (1-ssim_value[0]) / 2
 orb_value = orb(grayA, grayB)
 brisk_value = brisk(grayA, grayB, 90)
 akaze_value = akaze(grayA, grayB)
@@ -33,7 +33,7 @@ sift_value = sift(grayA, grayB)
 # cw_ssim_value = pyssim.SSIM(absolute_path_imageA).cw_ssim_value(absolute_path_imageB)
 
 
-print(f"SSIM: {ssim_value}")
+print(f"SSIM: {ssim_value[0]}")
 print(f"MSSSIM: {msssim_value}")
 print(f"DSSIM: {dssim_value}")
 print(f"RMSE: {rmse_value}")
@@ -53,7 +53,9 @@ print(f"SIFT: {sift_value[0]}")
 #     grayA, grayB, brisk_value[1], brisk_value[2], 
 #     sorted(brisk_value[-1], key=lambda x: x.distance), 999
 # )
-draw_features(
-    grayA, grayB, sift_value[1], sift_value[2], 
-    sorted(sift_value[-1], key=lambda x: x.distance), 999
-)
+# draw_features(
+#     grayA, grayB, sift_value[1], sift_value[2], 
+#     sorted(sift_value[-1], key=lambda x: x.distance), 999
+# )
+
+# draw_differences_ssim(ssim_value[1], grayA, grayB)

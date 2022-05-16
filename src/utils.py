@@ -1,6 +1,7 @@
 import cv2
 import typing
 from matplotlib import pyplot as plt
+import imutils
 
 
 def compute_similarity_with_descriptors(
@@ -53,3 +54,24 @@ def draw_features(
     )
     cv2.imshow('Matches', match_img)
     cv2.waitKey()
+
+def draw_differences_ssim(difference, image_a, image_b):
+    diff = (difference * 255).astype("uint8")
+
+    thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+    cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = imutils.grab_contours(cnts)
+
+    for c in cnts:
+        # compute the bounding box of the contour and then draw the
+        # bounding box on both input images to represent where the two
+        # images differ
+        (x, y, w, h) = cv2.boundingRect(c)
+        cv2.rectangle(image_a, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.rectangle(image_b, (x, y), (x + w, y + h), (0, 0, 255), 2)
+    # show the output images
+    cv2.imshow("Original", image_a)
+    cv2.imshow("Modified", image_b)
+    cv2.imshow("Diff", diff)
+    cv2.imshow("Thresh", thresh)
+    cv2.waitKey(0)
