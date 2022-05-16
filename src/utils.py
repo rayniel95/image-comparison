@@ -2,6 +2,7 @@ import cv2
 import typing
 from matplotlib import pyplot as plt
 import imutils
+from rootsift import RootSIFT_create
 
 
 def compute_similarity_with_descriptors(
@@ -44,6 +45,13 @@ def sift(
 )->typing.Tuple[float, typing.Any, typing.Any, typing.Any, typing.Any, typing.Any]:
     return compute_similarity_with_descriptors(
         cv2.SIFT_create(), image_a, image_b, presicion, cv2.NORM_L2
+    )
+
+def root_sift(
+    image_a, image_b, presicion: int=50
+)->typing.Tuple[float, typing.Any, typing.Any, typing.Any, typing.Any, typing.Any]:
+    return compute_similarity_with_descriptors(
+        RootSIFT_create(), image_a, image_b, presicion, cv2.NORM_L2
     )
 
 def draw_features(

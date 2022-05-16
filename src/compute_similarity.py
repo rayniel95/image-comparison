@@ -3,7 +3,7 @@ from image_similarity_measures.quality_metrics import fsim, rmse, psnr, sre, iss
 from sewar.full_ref import msssim, scc
 import ssim as pyssim
 import cv2
-from utils import draw_differences_ssim, orb, sift, akaze, brisk, draw_features
+from utils import draw_differences_ssim, orb, sift, akaze, brisk, draw_features, root_sift
 
 
 absolute_path_imageA = "/home/rainyel/Documents/datamart/image-comparison/src/output/image_a.jpg"
@@ -28,6 +28,8 @@ orb_value = orb(grayA, grayB)
 brisk_value = brisk(grayA, grayB, 90)
 akaze_value = akaze(grayA, grayB)
 sift_value = sift(grayA, grayB)
+# root_sift_value = root_sift(grayA, grayB, presicion=1) # FIXME - it is not working, return 1.0
+
 
 # NOTE - the process is killed
 # cw_ssim_value = pyssim.SSIM(absolute_path_imageA).cw_ssim_value(absolute_path_imageB)
@@ -45,6 +47,7 @@ print(f"ORB: {orb_value[0]}")
 print(f"BRISK: {brisk_value[0]}")
 print(f"AKAZE: {akaze_value[0]}")
 print(f"SIFT: {sift_value[0]}")
+# print(f"RootSIFT: {root_sift_value[0]}")
 # print(f"CW-SSIM: {cw_ssim_value}")
 # print(f"FSIM: {fsim_value}")
 
