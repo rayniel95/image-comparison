@@ -28,7 +28,7 @@ orb_value = orb(grayA, grayB)
 brisk_value = brisk(grayA, grayB, 90)
 akaze_value = akaze(grayA, grayB)
 sift_value = sift(grayA, grayB)
-# root_sift_value = root_sift(grayA, grayB, presicion=1) # FIXME - it is not working, return 1.0
+root_sift_value = root_sift(grayA, grayB, presicion=0.24) 
 
 
 # NOTE - the process is killed
@@ -47,7 +47,7 @@ print(f"ORB: {orb_value[0]}")
 print(f"BRISK: {brisk_value[0]}")
 print(f"AKAZE: {akaze_value[0]}")
 print(f"SIFT: {sift_value[0]}")
-# print(f"RootSIFT: {root_sift_value[0]}")
+print(f"RootSIFT: {root_sift_value[0]}")
 # print(f"CW-SSIM: {cw_ssim_value}")
 # print(f"FSIM: {fsim_value}")
 
