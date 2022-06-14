@@ -3,3 +3,4 @@ pdf
 output
 *.png
 __pycache__
+recipe_info.md

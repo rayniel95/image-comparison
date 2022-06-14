@@ -17,19 +17,18 @@ grayB = cv2.cvtColor(imageB, cv2.COLOR_BGR2GRAY)
 
 # fsim_value = fsim(imageA, imageB)
 scc_value = scc(grayA, grayB)
-issm_value = issm(imageA, imageB) # FIXME - it is not working, return 0.0
+issm_value = issm(grayA, grayB) # FIXME - it is not working, return 0.0
 rmse_value = rmse(imageA, imageB) 
 psnr_value = psnr(imageA, imageB) 
 sre_value = sre(imageA, imageB)
 ssim_value = ssim(grayA, grayB, full=True)
 msssim_value = msssim(grayA, grayB)
-dssim_value = (1-ssim_value[0]) / 2
+# dssim_value = (1-ssim_value[0]) / 2
 orb_value = orb(grayA, grayB)
 brisk_value = brisk(grayA, grayB, 90)
 akaze_value = akaze(grayA, grayB)
 sift_value = sift(grayA, grayB)
 root_sift_value = root_sift(grayA, grayB, presicion=0.24) 
-
 
 # NOTE - the process is killed
 # cw_ssim_value = pyssim.SSIM(absolute_path_imageA).cw_ssim_value(absolute_path_imageB)
@@ -37,7 +36,7 @@ root_sift_value = root_sift(grayA, grayB, presicion=0.24)
 
 print(f"SSIM: {ssim_value[0]}")
 print(f"MSSSIM: {msssim_value}")
-print(f"DSSIM: {dssim_value}")
+# print(f"DSSIM: {dssim_value}")
 print(f"RMSE: {rmse_value}")
 print(f"PSNR: {psnr_value}")
 print(f"SRE: {sre_value}")
